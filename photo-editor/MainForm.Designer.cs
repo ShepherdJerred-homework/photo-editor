@@ -23,148 +23,156 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-			this.components = new System.ComponentModel.Container();
-			this.mainFormMenuStrip = new System.Windows.Forms.MenuStrip();
-			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.locateOnDiskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.selectRootFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.detailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.smallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.largeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.directoriesTreeView = new System.Windows.Forms.TreeView();
-			this.picturesListView = new System.Windows.Forms.ListView();
-			this.mainFormMenuStrip.SuspendLayout();
-			this.SuspendLayout();
-			// 
-			// mainFormMenuStrip
-			// 
-			this.mainFormMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(photoEditorMainForm));
+            this.mainFormMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.locateOnDiskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectRootFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.smallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.largeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.directoriesTreeView = new System.Windows.Forms.TreeView();
+            this.picturesListView = new System.Windows.Forms.ListView();
+            this.mainFormMenuStrip.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // mainFormMenuStrip
+            // 
+            this.mainFormMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mainFormMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.helpToolStripMenuItem});
-			this.mainFormMenuStrip.Location = new System.Drawing.Point(0, 0);
-			this.mainFormMenuStrip.Name = "mainFormMenuStrip";
-			this.mainFormMenuStrip.Size = new System.Drawing.Size(793, 24);
-			this.mainFormMenuStrip.TabIndex = 0;
-			this.mainFormMenuStrip.Text = "MainFormMenuStrip";
-			// 
-			// fileToolStripMenuItem
-			// 
-			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainFormMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainFormMenuStrip.Name = "mainFormMenuStrip";
+            this.mainFormMenuStrip.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.mainFormMenuStrip.Size = new System.Drawing.Size(1057, 28);
+            this.mainFormMenuStrip.TabIndex = 0;
+            this.mainFormMenuStrip.Text = "MainFormMenuStrip";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.locateOnDiskToolStripMenuItem,
             this.selectRootFolderToolStripMenuItem,
             this.exitToolStripMenuItem});
-			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-			this.fileToolStripMenuItem.Text = "&File";
-			// 
-			// locateOnDiskToolStripMenuItem
-			// 
-			this.locateOnDiskToolStripMenuItem.Name = "locateOnDiskToolStripMenuItem";
-			this.locateOnDiskToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-			this.locateOnDiskToolStripMenuItem.Text = "&Locate on Disk";
-			this.locateOnDiskToolStripMenuItem.Click += new System.EventHandler(this.locateOnDiskToolStripMenuItem_Click);
-			// 
-			// selectRootFolderToolStripMenuItem
-			// 
-			this.selectRootFolderToolStripMenuItem.Name = "selectRootFolderToolStripMenuItem";
-			this.selectRootFolderToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-			this.selectRootFolderToolStripMenuItem.Text = "&Select Root Folder";
-			this.selectRootFolderToolStripMenuItem.Click += new System.EventHandler(this.selectRootFolderToolStripMenuItem_Click);
-			// 
-			// exitToolStripMenuItem
-			// 
-			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-			this.exitToolStripMenuItem.Text = "E&xit";
-			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-			// 
-			// viewToolStripMenuItem
-			// 
-			this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // locateOnDiskToolStripMenuItem
+            // 
+            this.locateOnDiskToolStripMenuItem.Name = "locateOnDiskToolStripMenuItem";
+            this.locateOnDiskToolStripMenuItem.Size = new System.Drawing.Size(206, 26);
+            this.locateOnDiskToolStripMenuItem.Text = "&Locate on Disk";
+            this.locateOnDiskToolStripMenuItem.Click += new System.EventHandler(this.locateOnDiskToolStripMenuItem_Click);
+            // 
+            // selectRootFolderToolStripMenuItem
+            // 
+            this.selectRootFolderToolStripMenuItem.Name = "selectRootFolderToolStripMenuItem";
+            this.selectRootFolderToolStripMenuItem.Size = new System.Drawing.Size(206, 26);
+            this.selectRootFolderToolStripMenuItem.Text = "&Select Root Folder";
+            this.selectRootFolderToolStripMenuItem.Click += new System.EventHandler(this.selectRootFolderToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(206, 26);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.detailToolStripMenuItem,
             this.smallToolStripMenuItem,
             this.largeToolStripMenuItem});
-			this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-			this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-			this.viewToolStripMenuItem.Text = "&View";
-			// 
-			// detailToolStripMenuItem
-			// 
-			this.detailToolStripMenuItem.Name = "detailToolStripMenuItem";
-			this.detailToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.detailToolStripMenuItem.Text = "&Detail";
-			this.detailToolStripMenuItem.Click += new System.EventHandler(this.detailToolStripMenuItem_Click);
-			// 
-			// smallToolStripMenuItem
-			// 
-			this.smallToolStripMenuItem.Name = "smallToolStripMenuItem";
-			this.smallToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.smallToolStripMenuItem.Text = "&Small";
-			this.smallToolStripMenuItem.Click += new System.EventHandler(this.smallToolStripMenuItem_Click);
-			// 
-			// largeToolStripMenuItem
-			// 
-			this.largeToolStripMenuItem.Name = "largeToolStripMenuItem";
-			this.largeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.largeToolStripMenuItem.Text = "&Large";
-			this.largeToolStripMenuItem.Click += new System.EventHandler(this.largeToolStripMenuItem_Click);
-			// 
-			// helpToolStripMenuItem
-			// 
-			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.viewToolStripMenuItem.Text = "&View";
+            // 
+            // detailToolStripMenuItem
+            // 
+            this.detailToolStripMenuItem.Name = "detailToolStripMenuItem";
+            this.detailToolStripMenuItem.Size = new System.Drawing.Size(124, 26);
+            this.detailToolStripMenuItem.Text = "&Detail";
+            this.detailToolStripMenuItem.Click += new System.EventHandler(this.detailToolStripMenuItem_Click);
+            // 
+            // smallToolStripMenuItem
+            // 
+            this.smallToolStripMenuItem.Name = "smallToolStripMenuItem";
+            this.smallToolStripMenuItem.Size = new System.Drawing.Size(124, 26);
+            this.smallToolStripMenuItem.Text = "&Small";
+            this.smallToolStripMenuItem.Click += new System.EventHandler(this.smallToolStripMenuItem_Click);
+            // 
+            // largeToolStripMenuItem
+            // 
+            this.largeToolStripMenuItem.Name = "largeToolStripMenuItem";
+            this.largeToolStripMenuItem.Size = new System.Drawing.Size(124, 26);
+            this.largeToolStripMenuItem.Text = "&Large";
+            this.largeToolStripMenuItem.Click += new System.EventHandler(this.largeToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
-			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-			this.helpToolStripMenuItem.Text = "&Help";
-			// 
-			// aboutToolStripMenuItem
-			// 
-			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.aboutToolStripMenuItem.Text = "&About";
-			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-			// 
-			// contextMenuStrip1
-			// 
-			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-			// 
-			// directoriesTreeView
-			// 
-			this.directoriesTreeView.Location = new System.Drawing.Point(12, 27);
-			this.directoriesTreeView.Name = "directoriesTreeView";
-			this.directoriesTreeView.Size = new System.Drawing.Size(200, 422);
-			this.directoriesTreeView.TabIndex = 1;
-			// 
-			// picturesListView
-			// 
-			this.picturesListView.Location = new System.Drawing.Point(218, 27);
-			this.picturesListView.Name = "picturesListView";
-			this.picturesListView.Size = new System.Drawing.Size(563, 422);
-			this.picturesListView.TabIndex = 2;
-			this.picturesListView.UseCompatibleStateImageBehavior = false;
-			// 
-			// photoEditorMainForm
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(793, 461);
-			this.Controls.Add(this.picturesListView);
-			this.Controls.Add(this.directoriesTreeView);
-			this.Controls.Add(this.mainFormMenuStrip);
-			this.MainMenuStrip = this.mainFormMenuStrip;
-			this.Name = "photoEditorMainForm";
-			this.Text = "Photo Editor";
-			this.mainFormMenuStrip.ResumeLayout(false);
-			this.mainFormMenuStrip.PerformLayout();
-			this.ResumeLayout(false);
-			this.PerformLayout();
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.helpToolStripMenuItem.Text = "&Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
+            this.aboutToolStripMenuItem.Text = "&About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // directoriesTreeView
+            // 
+            this.directoriesTreeView.Location = new System.Drawing.Point(16, 33);
+            this.directoriesTreeView.Margin = new System.Windows.Forms.Padding(4);
+            this.directoriesTreeView.Name = "directoriesTreeView";
+            this.directoriesTreeView.Size = new System.Drawing.Size(265, 518);
+            this.directoriesTreeView.TabIndex = 1;
+            // 
+            // picturesListView
+            // 
+            this.picturesListView.Location = new System.Drawing.Point(291, 33);
+            this.picturesListView.Margin = new System.Windows.Forms.Padding(4);
+            this.picturesListView.Name = "picturesListView";
+            this.picturesListView.Size = new System.Drawing.Size(749, 518);
+            this.picturesListView.TabIndex = 2;
+            this.picturesListView.UseCompatibleStateImageBehavior = false;
+            // 
+            // photoEditorMainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1057, 567);
+            this.Controls.Add(this.picturesListView);
+            this.Controls.Add(this.directoriesTreeView);
+            this.Controls.Add(this.mainFormMenuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.mainFormMenuStrip;
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "photoEditorMainForm";
+            this.Text = "Photo Editor";
+            this.mainFormMenuStrip.ResumeLayout(false);
+            this.mainFormMenuStrip.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
