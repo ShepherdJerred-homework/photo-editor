@@ -40,6 +40,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TreeView = new System.Windows.Forms.TreeView();
             this.ListView = new System.Windows.Forms.ListView();
+            this.noImagesMessage = new System.Windows.Forms.Label();
             this.mainFormMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,25 +98,26 @@
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
+            this.viewToolStripMenuItem.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
             // 
             // detailToolStripMenuItem
             // 
             this.detailToolStripMenuItem.Name = "detailToolStripMenuItem";
-            this.detailToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.detailToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.detailToolStripMenuItem.Text = "&Detail";
             this.detailToolStripMenuItem.Click += new System.EventHandler(this.detailToolStripMenuItem_Click);
             // 
             // smallToolStripMenuItem
             // 
             this.smallToolStripMenuItem.Name = "smallToolStripMenuItem";
-            this.smallToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.smallToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.smallToolStripMenuItem.Text = "&Small";
             this.smallToolStripMenuItem.Click += new System.EventHandler(this.smallToolStripMenuItem_Click);
             // 
             // largeToolStripMenuItem
             // 
             this.largeToolStripMenuItem.Name = "largeToolStripMenuItem";
-            this.largeToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.largeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.largeToolStripMenuItem.Text = "&Large";
             this.largeToolStripMenuItem.Click += new System.EventHandler(this.largeToolStripMenuItem_Click);
             // 
@@ -164,14 +166,26 @@
             this.ListView.TabIndex = 2;
             this.ListView.UseCompatibleStateImageBehavior = false;
             // 
+            // noImagesMessage
+            // 
+            this.noImagesMessage.AutoSize = true;
+            this.noImagesMessage.BackColor = System.Drawing.SystemColors.Window;
+            this.noImagesMessage.Location = new System.Drawing.Point(433, 231);
+            this.noImagesMessage.Name = "noImagesMessage";
+            this.noImagesMessage.Size = new System.Drawing.Size(127, 13);
+            this.noImagesMessage.TabIndex = 4;
+            this.noImagesMessage.Text = "This folder has no images";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(793, 461);
+            this.Controls.Add(this.noImagesMessage);
             this.Controls.Add(this.ListView);
             this.Controls.Add(this.TreeView);
             this.Controls.Add(this.mainFormMenuStrip);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainFormMenuStrip;
             this.Name = "MainForm";
@@ -200,6 +214,7 @@
 		private System.Windows.Forms.TreeView TreeView;
 		private System.Windows.Forms.ListView ListView;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.Label noImagesMessage;
     }
 }
 
