@@ -1,5 +1,5 @@
 ﻿namespace photo_editor {
-    partial class photoEditorMainForm {
+    partial class MainForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(photoEditorMainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainFormMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.locateOnDiskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,10 +36,10 @@
             this.largeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.directoriesTreeView = new System.Windows.Forms.TreeView();
-            this.mainListView = new System.Windows.Forms.ListView();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.TreeView = new System.Windows.Forms.TreeView();
+            this.ListView = new System.Windows.Forms.ListView();
             this.mainFormMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,21 +101,21 @@
             // detailToolStripMenuItem
             // 
             this.detailToolStripMenuItem.Name = "detailToolStripMenuItem";
-            this.detailToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.detailToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.detailToolStripMenuItem.Text = "&Detail";
             this.detailToolStripMenuItem.Click += new System.EventHandler(this.detailToolStripMenuItem_Click);
             // 
             // smallToolStripMenuItem
             // 
             this.smallToolStripMenuItem.Name = "smallToolStripMenuItem";
-            this.smallToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.smallToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.smallToolStripMenuItem.Text = "&Small";
             this.smallToolStripMenuItem.Click += new System.EventHandler(this.smallToolStripMenuItem_Click);
             // 
             // largeToolStripMenuItem
             // 
             this.largeToolStripMenuItem.Name = "largeToolStripMenuItem";
-            this.largeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.largeToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.largeToolStripMenuItem.Text = "&Large";
             this.largeToolStripMenuItem.Click += new System.EventHandler(this.largeToolStripMenuItem_Click);
             // 
@@ -134,29 +134,6 @@
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // directoriesTreeView
-            // 
-            this.directoriesTreeView.Location = new System.Drawing.Point(12, 27);
-            this.directoriesTreeView.Name = "directoriesTreeView";
-            this.directoriesTreeView.Size = new System.Drawing.Size(200, 422);
-            this.directoriesTreeView.TabIndex = 1;
-            // 
-            // mainListView
-            // 
-            this.mainListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.mainListView.Alignment = System.Windows.Forms.ListViewAlignment.Default;
-            this.mainListView.Location = new System.Drawing.Point(218, 27);
-            this.mainListView.Name = "mainListView";
-            this.mainListView.Size = new System.Drawing.Size(563, 422);
-            this.mainListView.TabIndex = 2;
-            this.mainListView.UseCompatibleStateImageBehavior = false;
-            // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
@@ -164,17 +141,40 @@
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
-            // photoEditorMainForm
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // TreeView
+            // 
+            this.TreeView.Location = new System.Drawing.Point(12, 27);
+            this.TreeView.Name = "TreeView";
+            this.TreeView.Size = new System.Drawing.Size(200, 422);
+            this.TreeView.TabIndex = 1;
+            // 
+            // ListView
+            // 
+            this.ListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.ListView.Alignment = System.Windows.Forms.ListViewAlignment.Default;
+            this.ListView.Location = new System.Drawing.Point(218, 27);
+            this.ListView.Name = "ListView";
+            this.ListView.Size = new System.Drawing.Size(563, 422);
+            this.ListView.TabIndex = 2;
+            this.ListView.UseCompatibleStateImageBehavior = false;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(793, 461);
-            this.Controls.Add(this.mainListView);
-            this.Controls.Add(this.directoriesTreeView);
+            this.Controls.Add(this.ListView);
+            this.Controls.Add(this.TreeView);
             this.Controls.Add(this.mainFormMenuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainFormMenuStrip;
-            this.Name = "photoEditorMainForm";
+            this.Name = "MainForm";
             this.Text = "Photo Editor";
             this.mainFormMenuStrip.ResumeLayout(false);
             this.mainFormMenuStrip.PerformLayout();
@@ -197,8 +197,8 @@
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-		private System.Windows.Forms.TreeView directoriesTreeView;
-		private System.Windows.Forms.ListView mainListView;
+		private System.Windows.Forms.TreeView TreeView;
+		private System.Windows.Forms.ListView ListView;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
     }
 }

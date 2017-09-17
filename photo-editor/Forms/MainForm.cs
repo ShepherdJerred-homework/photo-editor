@@ -9,21 +9,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using photo_editor.Forms;
 
 namespace photo_editor {
 
-	public partial class photoEditorMainForm : Form {
+	public partial class MainForm : Form {
 
 	    private DirectoryModel directoryModel;
 
-		public photoEditorMainForm() {
+		public MainForm() {
             directoryModel = new DirectoryModel();
 			InitializeComponent();
             RefreshListView();
 
-		    mainListView.Columns.Add("Name");
-		    mainListView.Columns.Add("Last Modification");
-		    mainListView.Columns.Add("File Size (MB)");
+		    ListView.Columns.Add("Name");
+		    ListView.Columns.Add("Last Modification");
+		    ListView.Columns.Add("File Size (MB)");
         }
 
 	    public void RefreshListView() {
@@ -31,11 +32,11 @@ namespace photo_editor {
 
 	        ImageList smallImagesList = new ImageList();
 	        smallImagesList.ImageSize = new Size(64, 64);
-	        mainListView.SmallImageList = smallImagesList;
+	        ListView.SmallImageList = smallImagesList;
 
             ImageList largeImageList = new ImageList();
             largeImageList.ImageSize = new Size(128, 128);
-	        mainListView.LargeImageList = largeImageList;
+	        ListView.LargeImageList = largeImageList;
 
             foreach (var file in files) {
                 smallImagesList.Images.Add(file.FullName, Image.FromFile(file.FullName));
@@ -51,10 +52,10 @@ namespace photo_editor {
 	            item.SubItems.Add((file.Length / 1024F / 1024F).ToString());
                 
 
-	            mainListView.Items.Add(item);
+	            ListView.Items.Add(item);
 	        }
 
-            Console.WriteLine(mainListView.Items.Count);
+            Console.WriteLine(ListView.Items.Count);
 	    }
 
 		#region MenuStrip Methods
@@ -71,30 +72,29 @@ namespace photo_editor {
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			throw new NotImplementedException();
+			Close();
 		}
 
 		private void detailToolStripMenuItem_Click(object sender, EventArgs e) {
-		    mainListView.View = View.Details;
+		    ListView.View = View.Details;
 		}
 
 		private void smallToolStripMenuItem_Click(object sender, EventArgs e) {
-		    mainListView.View = View.SmallIcon;
+		    ListView.View = View.SmallIcon;
 		}
 
 		private void largeToolStripMenuItem_Click(object sender, EventArgs e) {
-		    mainListView.View = View.LargeIcon;
+		    ListView.View = View.LargeIcon;
 		}
 
-		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			throw new NotImplementedException();
+		private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
+		    new AboutBox().ShowDialog();
 		}
 
         #endregion
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e) {
-            mainListView.Clear();
+            ListView.Clear();
             RefreshListView();
         }
     }

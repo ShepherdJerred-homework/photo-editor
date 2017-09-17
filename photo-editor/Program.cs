@@ -13,7 +13,7 @@ namespace photo_editor {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new photoEditorMainForm());
+            Application.Run(new MainForm());
         }
     }
 }
