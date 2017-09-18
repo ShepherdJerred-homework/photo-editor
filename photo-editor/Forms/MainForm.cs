@@ -13,11 +13,14 @@ using photo_editor.Forms;
 
 namespace photo_editor {
     public partial class MainForm : Form {
+        private DirectoryInfo rootDirectory;
         private DirectoryModel directoryModel;
 
         public MainForm() {
-            directoryModel = new DirectoryModel();
+            rootDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
+            directoryModel = new DirectoryModel(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
             InitializeComponent();
+            populateTreeView();
             RefreshListView();
 
             ListView.Columns.Add("Name");
@@ -56,6 +59,30 @@ namespace photo_editor {
             noImagesMessage.Visible = files.Length == 0;
         }
 
+        public void populateTreeView() {
+            ListDirectory(TreeView, rootDirectory.FullName);
+        }
+
+        private void ListDirectory(TreeView treeView, string path) {
+            treeView.Nodes.Clear();
+            var rootDirectoryInfo = new DirectoryInfo(path);
+            treeView.Nodes.Add(CreateDirectoryNode(rootDirectoryInfo));
+        }
+
+        private static TreeNode CreateDirectoryNode(DirectoryInfo directoryInfo) {
+            var directoryNode = new TreeNode(directoryInfo.Name);
+            try {
+                foreach (var directory in directoryInfo.GetDirectories())
+                    directoryNode.Nodes.Add(CreateDirectoryNode(directory));
+                foreach (var file in directoryInfo.GetFiles())
+                    directoryNode.Nodes.Add(new TreeNode(file.Name));
+            }
+            catch (UnauthorizedAccessException) {
+                
+            }
+            return directoryNode;
+        }
+
         #region MenuStrip Methods
 
         private void locateOnDiskToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -66,7 +93,9 @@ namespace photo_editor {
             FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
             DialogResult dialogResult = folderBrowser.ShowDialog();
             if (dialogResult == DialogResult.OK) {
-                directoryModel.directory = new DirectoryInfo(folderBrowser.SelectedPath);
+                rootDirectory = new DirectoryInfo(folderBrowser.SelectedPath);
+                directoryModel.directory = rootDirectory;
+                populateTreeView();
                 RefreshListView();
             }
         }
@@ -77,14 +106,25 @@ namespace photo_editor {
 
         private void detailToolStripMenuItem_Click(object sender, EventArgs e) {
             ListView.View = View.Details;
+            uncheckOtherMenuItems(detailToolStripMenuItem);
         }
 
         private void smallToolStripMenuItem_Click(object sender, EventArgs e) {
             ListView.View = View.SmallIcon;
+            uncheckOtherMenuItems(smallToolStripMenuItem);
         }
 
         private void largeToolStripMenuItem_Click(object sender, EventArgs e) {
             ListView.View = View.LargeIcon;
+            uncheckOtherMenuItems(largeToolStripMenuItem);
+        }
+
+        private void uncheckOtherMenuItems(ToolStripMenuItem activeMenuItem) {
+            foreach (ToolStripMenuItem item in activeMenuItem.Owner.Items) {
+                if (activeMenuItem != item) {
+                    item.Checked = false;
+                }
+            }
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {

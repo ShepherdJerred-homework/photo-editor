@@ -25,10 +25,14 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.mainFormMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.TreeView = new System.Windows.Forms.TreeView();
+            this.ListView = new System.Windows.Forms.ListView();
+            this.noImagesMessage = new System.Windows.Forms.Label();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.locateOnDiskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectRootFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,32 +41,49 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.TreeView = new System.Windows.Forms.TreeView();
-            this.ListView = new System.Windows.Forms.ListView();
-            this.noImagesMessage = new System.Windows.Forms.Label();
+            this.mainFormMenuStrip = new System.Windows.Forms.MenuStrip();
             this.mainFormMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // mainFormMenuStrip
+            // contextMenuStrip1
             // 
-            this.mainFormMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.mainFormMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.viewToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.refreshToolStripMenuItem});
-            this.mainFormMenuStrip.Location = new System.Drawing.Point(0, 0);
-            this.mainFormMenuStrip.Name = "mainFormMenuStrip";
-            this.mainFormMenuStrip.Size = new System.Drawing.Size(793, 24);
-            this.mainFormMenuStrip.TabIndex = 0;
-            this.mainFormMenuStrip.Text = "MainFormMenuStrip";
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // TreeView
+            // 
+            this.TreeView.Location = new System.Drawing.Point(12, 29);
+            this.TreeView.Name = "TreeView";
+            this.TreeView.Size = new System.Drawing.Size(200, 422);
+            this.TreeView.TabIndex = 1;
+            // 
+            // ListView
+            // 
+            this.ListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.ListView.Alignment = System.Windows.Forms.ListViewAlignment.Default;
+            this.ListView.Location = new System.Drawing.Point(218, 29);
+            this.ListView.Name = "ListView";
+            this.ListView.Size = new System.Drawing.Size(563, 422);
+            this.ListView.TabIndex = 2;
+            this.ListView.UseCompatibleStateImageBehavior = false;
+            // 
+            // noImagesMessage
+            // 
+            this.noImagesMessage.AutoSize = true;
+            this.noImagesMessage.BackColor = System.Drawing.SystemColors.Window;
+            this.noImagesMessage.Location = new System.Drawing.Point(425, 237);
+            this.noImagesMessage.Name = "noImagesMessage";
+            this.noImagesMessage.Size = new System.Drawing.Size(127, 13);
+            this.noImagesMessage.TabIndex = 4;
+            this.noImagesMessage.Text = "This folder has no images";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.locateOnDiskToolStripMenuItem,
             this.selectRootFolderToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -81,6 +102,11 @@
             this.selectRootFolderToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.selectRootFolderToolStripMenuItem.Text = "&Select Root Folder";
             this.selectRootFolderToolStripMenuItem.Click += new System.EventHandler(this.selectRootFolderToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(166, 6);
             // 
             // exitToolStripMenuItem
             // 
@@ -102,6 +128,7 @@
             // 
             // detailToolStripMenuItem
             // 
+            this.detailToolStripMenuItem.CheckOnClick = true;
             this.detailToolStripMenuItem.Name = "detailToolStripMenuItem";
             this.detailToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.detailToolStripMenuItem.Text = "&Detail";
@@ -109,6 +136,7 @@
             // 
             // smallToolStripMenuItem
             // 
+            this.smallToolStripMenuItem.CheckOnClick = true;
             this.smallToolStripMenuItem.Name = "smallToolStripMenuItem";
             this.smallToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.smallToolStripMenuItem.Text = "&Small";
@@ -116,6 +144,9 @@
             // 
             // largeToolStripMenuItem
             // 
+            this.largeToolStripMenuItem.Checked = true;
+            this.largeToolStripMenuItem.CheckOnClick = true;
+            this.largeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.largeToolStripMenuItem.Name = "largeToolStripMenuItem";
             this.largeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.largeToolStripMenuItem.Text = "&Large";
@@ -143,44 +174,25 @@
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
-            // contextMenuStrip1
+            // mainFormMenuStrip
             // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // TreeView
-            // 
-            this.TreeView.Location = new System.Drawing.Point(12, 27);
-            this.TreeView.Name = "TreeView";
-            this.TreeView.Size = new System.Drawing.Size(200, 422);
-            this.TreeView.TabIndex = 1;
-            // 
-            // ListView
-            // 
-            this.ListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.ListView.Alignment = System.Windows.Forms.ListViewAlignment.Default;
-            this.ListView.Location = new System.Drawing.Point(218, 27);
-            this.ListView.Name = "ListView";
-            this.ListView.Size = new System.Drawing.Size(563, 422);
-            this.ListView.TabIndex = 2;
-            this.ListView.UseCompatibleStateImageBehavior = false;
-            // 
-            // noImagesMessage
-            // 
-            this.noImagesMessage.AutoSize = true;
-            this.noImagesMessage.BackColor = System.Drawing.SystemColors.Window;
-            this.noImagesMessage.Location = new System.Drawing.Point(433, 231);
-            this.noImagesMessage.Name = "noImagesMessage";
-            this.noImagesMessage.Size = new System.Drawing.Size(127, 13);
-            this.noImagesMessage.TabIndex = 4;
-            this.noImagesMessage.Text = "This folder has no images";
+            this.mainFormMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mainFormMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem,
+            this.helpToolStripMenuItem,
+            this.refreshToolStripMenuItem});
+            this.mainFormMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainFormMenuStrip.Name = "mainFormMenuStrip";
+            this.mainFormMenuStrip.Size = new System.Drawing.Size(793, 24);
+            this.mainFormMenuStrip.TabIndex = 0;
+            this.mainFormMenuStrip.Text = "MainFormMenuStrip";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 461);
+            this.ClientSize = new System.Drawing.Size(793, 463);
             this.Controls.Add(this.noImagesMessage);
             this.Controls.Add(this.ListView);
             this.Controls.Add(this.TreeView);
@@ -188,6 +200,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainFormMenuStrip;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Photo Editor";
             this.mainFormMenuStrip.ResumeLayout(false);
@@ -198,23 +211,23 @@
         }
 
 		#endregion
-
-		private System.Windows.Forms.MenuStrip mainFormMenuStrip;
-		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem locateOnDiskToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem selectRootFolderToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem detailToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem smallToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem largeToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
 		private System.Windows.Forms.TreeView TreeView;
 		private System.Windows.Forms.ListView ListView;
-        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.Label noImagesMessage;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem locateOnDiskToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectRootFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem detailToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem smallToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem largeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip mainFormMenuStrip;
     }
 }
 
