@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using photo_editor.Forms;
 
+// TODO resize views
+// TODO fix duplicate images
+// TODO expand tree levels on start
 // TODO add splitter control
 namespace photo_editor {
     public partial class MainForm : Form {
@@ -20,53 +18,74 @@ namespace photo_editor {
 
         public MainForm() {
             rootDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
-            directoryModel = new DirectoryModel(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
+            directoryModel = new DirectoryModel();
             InitializeComponent();
+
             RefreshTreeView();
-            RefreshListView();
 
             ListView.Columns.Add("Name");
             ListView.Columns.Add("Last Modification");
             ListView.Columns.Add("File Size (MB)");
+
+            // For some reason this method doesn't need to be called??
+//            UpdateSelectedDirectory(rootDirectory);
         }
 
         public void UpdateSelectedDirectory(DirectoryInfo directoryInfo) {
             directoryModel.directory = directoryInfo;
-            RefreshListView();
             directoryLabel.Text = directoryInfo.FullName;
+            itemCount.Text = directoryModel.getImagesInDirectory().Length + " items";
+            RefreshListView();
         }
 
-        // TODO load images async, display them as they are loaded
-        public void RefreshListView() {
-            ListView.Clear();
-            FileInfo[] files = directoryModel.getImagesInDirectory();
+        // TODO load images async, display them as they are loaded (should be done?)
+        public async void RefreshListView() {
+            ListView.Items.Clear();
 
-            ImageList smallImagesList = new ImageList();
-            smallImagesList.ImageSize = new Size(64, 64);
-            ListView.SmallImageList = smallImagesList;
+            noImagesMessage.Visible = directoryModel.getImagesInDirectory().Length == 0;
 
-            ImageList largeImageList = new ImageList();
-            largeImageList.ImageSize = new Size(128, 128);
-            ListView.LargeImageList = largeImageList;
+            if (directoryModel.getImagesInDirectory().Length > 0) {
+                await Task.Run(() => {
+                    FileInfo[] files = directoryModel.getImagesInDirectory();
 
-            foreach (var file in files) {
-                smallImagesList.Images.Add(file.FullName, Image.FromFile(file.FullName));
-                largeImageList.Images.Add(file.FullName, Image.FromFile(file.FullName));
+                    ImageList smallImagesList = new ImageList();
+                    smallImagesList.ImageSize = new Size(64, 64);
 
-                ListViewItem item = new ListViewItem {
-                    Name = file.Name,
-                    Text = file.Name,
-                    ImageKey = file.FullName
-                };
+                    ImageList largeImageList = new ImageList();
+                    largeImageList.ImageSize = new Size(128, 128);
 
-                item.SubItems.Add(file.LastWriteTime.ToString(CultureInfo.CurrentCulture));
-                item.SubItems.Add((file.Length / 1024F / 1024F).ToString());
-                item.Tag = file;
+                    ListView.Invoke((MethodInvoker) delegate {
+                        ListView.SmallImageList = smallImagesList;
+                        ListView.LargeImageList = largeImageList;
+                    });
 
-                ListView.Items.Add(item);
+                    imageLoadingBar.Invoke((MethodInvoker) delegate {
+                        imageLoadingBar.Value = 0;
+                        imageLoadingBar.Maximum = directoryModel.getImagesInDirectory().Length;
+                    });
+
+                    foreach (var file in files) {
+                        imageLoadingBar.Invoke((MethodInvoker) delegate { imageLoadingBar.PerformStep(); });
+
+                        ListView.Invoke((MethodInvoker) delegate {
+                            smallImagesList.Images.Add(file.FullName, Image.FromFile(file.FullName));
+                            largeImageList.Images.Add(file.FullName, Image.FromFile(file.FullName));
+                        });
+
+                        ListViewItem item = new ListViewItem {
+                            Name = file.Name,
+                            Text = file.Name,
+                            ImageKey = file.FullName
+                        };
+
+                        item.SubItems.Add(file.LastWriteTime.ToString(CultureInfo.CurrentCulture));
+                        item.SubItems.Add((file.Length / 1024F / 1024F).ToString());
+                        item.Tag = file;
+
+                        ListView.Invoke((MethodInvoker) delegate { ListView.Items.Add(item); });
+                    }
+                });
             }
-
-            noImagesMessage.Visible = files.Length == 0;
         }
 
         public void RefreshTreeView() {
@@ -86,7 +105,8 @@ namespace photo_editor {
                 foreach (var directory in directoryInfo.GetDirectories()) {
                     directoryNode.Nodes.Add(CreateTreeNode(directory));
                 }
-            } catch (UnauthorizedAccessException) {
+            }
+            catch (UnauthorizedAccessException) {
             }
             directoryNode.Tag = directoryInfo;
             return directoryNode;
@@ -153,18 +173,14 @@ namespace photo_editor {
 
         private void TreeView_AfterSelect(object sender, TreeViewEventArgs e) {
             // Load the children (optional)
-            // Set as active folder
             TreeNode selectedTreeNode = TreeView.SelectedNode;
             if (selectedTreeNode != null) {
                 UpdateSelectedDirectory((DirectoryInfo) selectedTreeNode.Tag);
             }
-            // Refresh the list view
         }
 
         private void ListView_ItemActivate(object sender, EventArgs e) {
-            // Open EditForm
-            // Ensure only one can open at a time
-            EditForm editForm = new EditForm();
+            EditForm editForm = new EditForm((FileInfo) ListView.SelectedItems[0].Tag);
             editForm.ShowDialog();
         }
     }
