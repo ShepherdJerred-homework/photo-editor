@@ -23,3 +23,6 @@ Jerred Shepherd (50%)
 
 Alec Watson (50%)
 * Main form layout
+
+Screenshot
+![Screenshot of the application](https://i.imgur.com/VzhHM5C.png)
