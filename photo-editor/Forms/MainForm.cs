@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using photo_editor.Forms;
 
+// TODO add splitter control
 namespace photo_editor {
     public partial class MainForm : Form {
         private DirectoryInfo rootDirectory;
@@ -20,7 +22,7 @@ namespace photo_editor {
             rootDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
             directoryModel = new DirectoryModel(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
             InitializeComponent();
-            populateTreeView();
+            RefreshTreeView();
             RefreshListView();
 
             ListView.Columns.Add("Name");
@@ -28,7 +30,15 @@ namespace photo_editor {
             ListView.Columns.Add("File Size (MB)");
         }
 
+        public void UpdateSelectedDirectory(DirectoryInfo directoryInfo) {
+            directoryModel.directory = directoryInfo;
+            RefreshListView();
+            directoryLabel.Text = directoryInfo.FullName;
+        }
+
+        // TODO load images async, display them as they are loaded
         public void RefreshListView() {
+            ListView.Clear();
             FileInfo[] files = directoryModel.getImagesInDirectory();
 
             ImageList smallImagesList = new ImageList();
@@ -51,7 +61,7 @@ namespace photo_editor {
 
                 item.SubItems.Add(file.LastWriteTime.ToString(CultureInfo.CurrentCulture));
                 item.SubItems.Add((file.Length / 1024F / 1024F).ToString());
-
+                item.Tag = file;
 
                 ListView.Items.Add(item);
             }
@@ -59,34 +69,40 @@ namespace photo_editor {
             noImagesMessage.Visible = files.Length == 0;
         }
 
-        public void populateTreeView() {
+        public void RefreshTreeView() {
+            TreeView.Nodes.Clear();
             ListDirectory(TreeView, rootDirectory.FullName);
         }
 
         private void ListDirectory(TreeView treeView, string path) {
-            treeView.Nodes.Clear();
-            var rootDirectoryInfo = new DirectoryInfo(path);
-            treeView.Nodes.Add(CreateDirectoryNode(rootDirectoryInfo));
+            DirectoryInfo rootDirectoryInfo = new DirectoryInfo(path);
+            treeView.Nodes.Add(CreateTreeNode(rootDirectoryInfo));
         }
 
-        private static TreeNode CreateDirectoryNode(DirectoryInfo directoryInfo) {
-            var directoryNode = new TreeNode(directoryInfo.Name);
+        // TODO add image icons
+        private static TreeNode CreateTreeNode(DirectoryInfo directoryInfo) {
+            TreeNode directoryNode = new TreeNode(directoryInfo.Name);
             try {
-                foreach (var directory in directoryInfo.GetDirectories())
-                    directoryNode.Nodes.Add(CreateDirectoryNode(directory));
-                foreach (var file in directoryInfo.GetFiles())
-                    directoryNode.Nodes.Add(new TreeNode(file.Name));
+                foreach (var directory in directoryInfo.GetDirectories()) {
+                    directoryNode.Nodes.Add(CreateTreeNode(directory));
+                }
+            } catch (UnauthorizedAccessException) {
             }
-            catch (UnauthorizedAccessException) {
-                
-            }
+            directoryNode.Tag = directoryInfo;
             return directoryNode;
         }
 
         #region MenuStrip Methods
 
         private void locateOnDiskToolStripMenuItem_Click(object sender, EventArgs e) {
-            throw new NotImplementedException();
+            if (ListView.SelectedItems.Count == 1) {
+                string filePath = ((FileInfo) ListView.SelectedItems[0].Tag).FullName;
+                Process.Start("explorer.exe", @filePath);
+            }
+            else if (ListView.SelectedItems.Count < 1) {
+                MessageBox.Show("Please select a picture to open in explorer", "Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void selectRootFolderToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -94,9 +110,8 @@ namespace photo_editor {
             DialogResult dialogResult = folderBrowser.ShowDialog();
             if (dialogResult == DialogResult.OK) {
                 rootDirectory = new DirectoryInfo(folderBrowser.SelectedPath);
-                directoryModel.directory = rootDirectory;
-                populateTreeView();
-                RefreshListView();
+                UpdateSelectedDirectory(rootDirectory);
+                RefreshTreeView();
             }
         }
 
@@ -133,12 +148,24 @@ namespace photo_editor {
 
         #endregion
 
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e) {
-            ListView.Clear();
-            RefreshListView();
+        private void viewToolStripMenuItem_Click(object sender, EventArgs e) {
         }
 
-        private void viewToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void TreeView_AfterSelect(object sender, TreeViewEventArgs e) {
+            // Load the children (optional)
+            // Set as active folder
+            TreeNode selectedTreeNode = TreeView.SelectedNode;
+            if (selectedTreeNode != null) {
+                UpdateSelectedDirectory((DirectoryInfo) selectedTreeNode.Tag);
+            }
+            // Refresh the list view
+        }
+
+        private void ListView_ItemActivate(object sender, EventArgs e) {
+            // Open EditForm
+            // Ensure only one can open at a time
+            EditForm editForm = new EditForm();
+            editForm.ShowDialog();
         }
     }
 }

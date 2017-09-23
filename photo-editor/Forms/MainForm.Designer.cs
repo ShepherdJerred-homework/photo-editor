@@ -40,8 +40,9 @@
             this.largeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainFormMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.directoryLabel = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.mainFormMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,16 +58,18 @@
             this.TreeView.Name = "TreeView";
             this.TreeView.Size = new System.Drawing.Size(200, 422);
             this.TreeView.TabIndex = 1;
+            this.TreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeView_AfterSelect);
             // 
             // ListView
             // 
-            this.ListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.ListView.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.ListView.Alignment = System.Windows.Forms.ListViewAlignment.Default;
             this.ListView.Location = new System.Drawing.Point(218, 29);
             this.ListView.Name = "ListView";
             this.ListView.Size = new System.Drawing.Size(563, 422);
             this.ListView.TabIndex = 2;
             this.ListView.UseCompatibleStateImageBehavior = false;
+            this.ListView.ItemActivate += new System.EventHandler(this.ListView_ItemActivate);
             // 
             // noImagesMessage
             // 
@@ -81,8 +84,8 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.locateOnDiskToolStripMenuItem,
             this.selectRootFolderToolStripMenuItem,
+            this.locateOnDiskToolStripMenuItem,
             this.toolStripMenuItem1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -92,35 +95,37 @@
             // locateOnDiskToolStripMenuItem
             // 
             this.locateOnDiskToolStripMenuItem.Name = "locateOnDiskToolStripMenuItem";
-            this.locateOnDiskToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.locateOnDiskToolStripMenuItem.Text = "&Locate on Disk";
+            this.locateOnDiskToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.locateOnDiskToolStripMenuItem.Size = new System.Drawing.Size(286, 22);
+            this.locateOnDiskToolStripMenuItem.Text = "&Open selected image in Explorer";
             this.locateOnDiskToolStripMenuItem.Click += new System.EventHandler(this.locateOnDiskToolStripMenuItem_Click);
             // 
             // selectRootFolderToolStripMenuItem
             // 
             this.selectRootFolderToolStripMenuItem.Name = "selectRootFolderToolStripMenuItem";
-            this.selectRootFolderToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.selectRootFolderToolStripMenuItem.Text = "&Select Root Folder";
+            this.selectRootFolderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.selectRootFolderToolStripMenuItem.Size = new System.Drawing.Size(286, 22);
+            this.selectRootFolderToolStripMenuItem.Text = "&Select root folder...";
             this.selectRootFolderToolStripMenuItem.Click += new System.EventHandler(this.selectRootFolderToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(166, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(283, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(286, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.detailToolStripMenuItem,
+            this.largeToolStripMenuItem,
             this.smallToolStripMenuItem,
-            this.largeToolStripMenuItem});
+            this.detailToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
@@ -131,7 +136,7 @@
             this.detailToolStripMenuItem.CheckOnClick = true;
             this.detailToolStripMenuItem.Name = "detailToolStripMenuItem";
             this.detailToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.detailToolStripMenuItem.Text = "&Detail";
+            this.detailToolStripMenuItem.Text = "&List/Detail";
             this.detailToolStripMenuItem.Click += new System.EventHandler(this.detailToolStripMenuItem_Click);
             // 
             // smallToolStripMenuItem
@@ -139,7 +144,7 @@
             this.smallToolStripMenuItem.CheckOnClick = true;
             this.smallToolStripMenuItem.Name = "smallToolStripMenuItem";
             this.smallToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.smallToolStripMenuItem.Text = "&Small";
+            this.smallToolStripMenuItem.Text = "&Small Icons";
             this.smallToolStripMenuItem.Click += new System.EventHandler(this.smallToolStripMenuItem_Click);
             // 
             // largeToolStripMenuItem
@@ -149,7 +154,7 @@
             this.largeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.largeToolStripMenuItem.Name = "largeToolStripMenuItem";
             this.largeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.largeToolStripMenuItem.Text = "&Large";
+            this.largeToolStripMenuItem.Text = "&Large Icons";
             this.largeToolStripMenuItem.Click += new System.EventHandler(this.largeToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -163,16 +168,9 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // mainFormMenuStrip
             // 
@@ -180,19 +178,36 @@
             this.mainFormMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.viewToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.refreshToolStripMenuItem});
+            this.helpToolStripMenuItem});
             this.mainFormMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainFormMenuStrip.Name = "mainFormMenuStrip";
             this.mainFormMenuStrip.Size = new System.Drawing.Size(793, 24);
             this.mainFormMenuStrip.TabIndex = 0;
             this.mainFormMenuStrip.Text = "MainFormMenuStrip";
             // 
+            // directoryLabel
+            // 
+            this.directoryLabel.AutoSize = true;
+            this.directoryLabel.Location = new System.Drawing.Point(12, 458);
+            this.directoryLabel.Name = "directoryLabel";
+            this.directoryLabel.Size = new System.Drawing.Size(140, 13);
+            this.directoryLabel.TabIndex = 5;
+            this.directoryLabel.Text = "No folder has been selected";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(646, 457);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(135, 14);
+            this.progressBar1.TabIndex = 6;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 463);
+            this.ClientSize = new System.Drawing.Size(793, 478);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.directoryLabel);
             this.Controls.Add(this.noImagesMessage);
             this.Controls.Add(this.ListView);
             this.Controls.Add(this.TreeView);
@@ -226,8 +241,9 @@
         private System.Windows.Forms.ToolStripMenuItem largeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.MenuStrip mainFormMenuStrip;
+        private System.Windows.Forms.Label directoryLabel;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 
