@@ -12,7 +12,8 @@ A barebones jpeg photo editor/view made with Windows Forms and C#
 * None
 
 ### Extra credit
-* None
+* Splitter control
+* Show images as they are loading
 
 ### Contributions
 Jerred Shepherd (50%)
