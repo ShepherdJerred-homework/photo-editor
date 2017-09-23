@@ -65,6 +65,7 @@
             this.ListView.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.ListView.Alignment = System.Windows.Forms.ListViewAlignment.Default;
             this.ListView.Location = new System.Drawing.Point(218, 29);
+            this.ListView.MultiSelect = false;
             this.ListView.Name = "ListView";
             this.ListView.Size = new System.Drawing.Size(563, 422);
             this.ListView.TabIndex = 2;
