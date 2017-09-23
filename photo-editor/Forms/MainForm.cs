@@ -34,7 +34,6 @@ namespace photo_editor {
             RefreshListView();
         }
 
-        // TODO load images async, display them as they are loaded (should be done?)
         public async void RefreshListView() {
             ListView.Items.Clear();
 
