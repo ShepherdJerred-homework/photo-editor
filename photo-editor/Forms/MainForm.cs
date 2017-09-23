@@ -7,10 +7,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using photo_editor.Forms;
 
-// TODO resize views
-// TODO fix duplicate images
-// TODO expand tree levels on start
-// TODO add splitter control
 namespace photo_editor {
     public partial class MainForm : Form {
         private DirectoryInfo rootDirectory;
@@ -27,8 +23,8 @@ namespace photo_editor {
             ListView.Columns.Add("Last Modification");
             ListView.Columns.Add("File Size (MB)");
 
-            // For some reason this method doesn't need to be called??
-//            UpdateSelectedDirectory(rootDirectory);
+            // We don't need to call this method because the TreeView will do it for us when loaded
+            // UpdateSelectedDirectory(rootDirectory);
         }
 
         public void UpdateSelectedDirectory(DirectoryInfo directoryInfo) {
@@ -59,17 +55,21 @@ namespace photo_editor {
                         ListView.LargeImageList = largeImageList;
                     });
 
-                    imageLoadingBar.Invoke((MethodInvoker) delegate {
+                    statusStrip.Invoke((MethodInvoker) delegate {
                         imageLoadingBar.Value = 0;
                         imageLoadingBar.Maximum = directoryModel.getImagesInDirectory().Length;
                     });
 
-                    foreach (var file in files) {
-                        imageLoadingBar.Invoke((MethodInvoker) delegate { imageLoadingBar.PerformStep(); });
+                    foreach (FileInfo file in files) {
+                        statusStrip.Invoke((MethodInvoker) delegate { imageLoadingBar.PerformStep(); });
 
                         ListView.Invoke((MethodInvoker) delegate {
-                            smallImagesList.Images.Add(file.FullName, Image.FromFile(file.FullName));
-                            largeImageList.Images.Add(file.FullName, Image.FromFile(file.FullName));
+                            byte[] bytes = System.IO.File.ReadAllBytes(file.FullName);
+                            MemoryStream ms = new MemoryStream(bytes);
+                            Image image = Image.FromStream(ms);
+
+                            smallImagesList.Images.Add(file.FullName, image);
+                            largeImageList.Images.Add(file.FullName, image);
                         });
 
                         ListViewItem item = new ListViewItem {
@@ -172,9 +172,9 @@ namespace photo_editor {
         }
 
         private void TreeView_AfterSelect(object sender, TreeViewEventArgs e) {
-            // Load the children (optional)
             TreeNode selectedTreeNode = TreeView.SelectedNode;
             if (selectedTreeNode != null) {
+                selectedTreeNode.Expand();
                 UpdateSelectedDirectory((DirectoryInfo) selectedTreeNode.Tag);
             }
         }
