@@ -15,11 +15,13 @@ namespace photo_editor {
 	public partial class EditForm : Form {
 
 		private PhotoEditor photoEditor;
+		private TransformProgressForm transformProgressForm;
 
 		public EditForm(FileInfo fileInfo)
 		{
 			Image image = Image.FromFile(fileInfo.FullName);
 			photoEditor = new PhotoEditor((Bitmap)image);
+			photoEditor.OnePercentOfEditCompleted += updateTransformProgressBar;
 
 			InitializeComponent();
 			pictureBox.Image = image;
@@ -31,12 +33,16 @@ namespace photo_editor {
 			transformProgressForm.Show();
 		}
 
-		private void alterPhoto_Click(object sender, EventArgs e)
+		private async void alterPhoto_Click(object sender, EventArgs e)
 		{
 			disableForm();
+			transformProgressForm = new TransformProgressForm();
+			transformProgressForm.ImageEditCancelled += cancelImageEdit;
+			transformProgressForm.Show();
 
-			alterPhoto(sender);
+			await Task.Run(() => { alterPhoto(sender); });
 
+			transformProgressForm.Close();
 			enableForm();
 			updateImage();
 		}
@@ -66,6 +72,17 @@ namespace photo_editor {
 			{
 				throw new ArgumentException("EditForm.AlterPhoto() could not be performed with the sender - " + sender.ToString());
 			}
+		}
+
+		private void updateTransformProgressBar(int totalPercentageCompleted)
+		{
+			Invoke((Action)delegate () { transformProgressForm.ProgressBarValue = totalPercentageCompleted; });
+			//transformProgressForm.ProgressBarValue = totalPercentageCompleted;
+		}
+
+		private void cancelImageEdit()
+		{
+			photoEditor.cancelImageEdit();
 		}
 
 		private void disableForm()

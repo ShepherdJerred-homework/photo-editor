@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace photo_editor
 {
@@ -12,21 +15,41 @@ namespace photo_editor
 		private const int BRIGHTNESS_MIN_VALUE = 0;
 
 		private int transformedBitmapArea;
+		private int onePercentOfArea;
+		private Bitmap storedTransformedBitmap;
+
+		public delegate void OnePercentOfEditCompletedEvent(int totalPercentComplete);
+		public event OnePercentOfEditCompletedEvent OnePercentOfEditCompleted;
+		public CancellationTokenSource cancellationTokenSource;
 
 		public Bitmap TransformedBitmap { get; set; }
 
 		public PhotoEditor(Bitmap transformedBitmap)
 		{
 			TransformedBitmap = transformedBitmap;
+
 			transformedBitmapArea = calculateTransformedBitmapArea();
+			onePercentOfArea = transformedBitmapArea / 100;
 		}
 
 		public void InvertColors()
 		{
+			storeTransformedBitmap();
+			cancellationTokenSource = new CancellationTokenSource();
+
+			int currentPerecentageCompleted = 0;
+			int numberOfPixelsEdited = onePercentOfArea;
+
 			for (int y = 0; y < TransformedBitmap.Height; y++)
 			{
 				for (int x = 0; x < TransformedBitmap.Width; x++)
 				{
+					if (cancellationTokenSource.Token.IsCancellationRequested)
+					{
+						undoImageChanges();
+						return;
+					}
+
 					Color color = TransformedBitmap.GetPixel(x, y);
 					int newRed = Math.Abs(color.R - RGB_MAX_VALUE);
 					int newGreen = Math.Abs(color.G - RGB_MAX_VALUE);
@@ -34,21 +57,57 @@ namespace photo_editor
 
 					Color newColor = Color.FromArgb(newRed, newGreen, newBlue);
 					TransformedBitmap.SetPixel(x, y, newColor);
+
+					if (numberOfPixelsEdited == 0)
+					{
+						OnePercentOfEditCompleted(++currentPerecentageCompleted);
+						numberOfPixelsEdited = onePercentOfArea;
+					}
+					else
+					{
+						numberOfPixelsEdited--;
+					}
 				}
 			}
+
+			storeTransformedBitmap();
 		}
 
 		public void TransformByColor(Color transformColor)
 		{
+			storeTransformedBitmap();
+			cancellationTokenSource = new CancellationTokenSource();
+
+			int currentPerecentageCompleted = 0;
+			int numberOfPixelsEdited = onePercentOfArea;
+
 			for (int y = 0; y < TransformedBitmap.Height; y++)
 			{
 				for (int x = 0; x < TransformedBitmap.Width; x++)
 				{
+					if (cancellationTokenSource.Token.IsCancellationRequested)
+					{
+						undoImageChanges();
+						return;
+					}
+
 					Color newColor = getNewColorForColorTransform(calculateAverageRgbPercentageForPixel(x, y), transformColor);
 
 					TransformedBitmap.SetPixel(x, y, newColor);
+
+					if (numberOfPixelsEdited == 0)
+					{
+						OnePercentOfEditCompleted(++currentPerecentageCompleted);
+						numberOfPixelsEdited = onePercentOfArea;
+					}
+					else
+					{
+						numberOfPixelsEdited--;
+					}
 				}
 			}
+
+			storeTransformedBitmap();
 		}
 
 		public void ChangeBrightness(int brightness)
@@ -61,17 +120,51 @@ namespace photo_editor
 				throw new ArgumentException("The value for brightness cannot be greater than 100 or less than 0. Current value = " + brightness);
 			}
 
+			storeTransformedBitmap();
+			cancellationTokenSource = new CancellationTokenSource();
+
+			int currentPerecentageCompleted = 0;
+			int numberOfPixelsEdited = onePercentOfArea;
+
 			int amountToSubtractFromRgbValue = calculateAmountToSubtractFromRgbValue(brightness);
 
 			for (int y = 0; y < TransformedBitmap.Height; y++)
 			{
 				for (int x = 0; x < TransformedBitmap.Width; x++)
 				{
+					if (cancellationTokenSource.Token.IsCancellationRequested)
+					{
+						undoImageChanges();
+						return;
+					}
+
 					Color newColor = getNewColorForBrightnessTransform(amountToSubtractFromRgbValue, TransformedBitmap.GetPixel(x, y));
 
 					TransformedBitmap.SetPixel(x, y, newColor);
+
+					if (numberOfPixelsEdited == 0)
+					{
+						OnePercentOfEditCompleted(++currentPerecentageCompleted);
+						numberOfPixelsEdited = onePercentOfArea;
+					}
+					else
+					{
+						numberOfPixelsEdited--;
+					}
 				}
 			}
+
+			storeTransformedBitmap();
+		}
+
+		public void cancelImageEdit()
+		{
+			cancellationTokenSource.Cancel();
+		}
+
+		private void onePercentOfPhotoEditCompleted(int totalPercentCompleted)
+		{
+			OnePercentOfEditCompleted(totalPercentCompleted);
 		}
 
 		private Color getNewColorForBrightnessTransform(int amountToSubtractFromRgbValue, Color currentColor)
@@ -121,6 +214,16 @@ namespace photo_editor
 				return RGB_MIN_VALUE;
 			else
 				return result;
+		}
+
+		private void undoImageChanges()
+		{
+			TransformedBitmap = storedTransformedBitmap;
+		}
+
+		private void storeTransformedBitmap()
+		{
+			storedTransformedBitmap = (Bitmap)TransformedBitmap.Clone();
 		}
 	}
 }
