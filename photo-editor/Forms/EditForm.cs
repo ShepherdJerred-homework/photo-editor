@@ -19,7 +19,8 @@ namespace photo_editor {
 
 		public EditForm(FileInfo fileInfo)
 		{
-			Image image = Image.FromFile(fileInfo.FullName);
+			Image image = getImageFromFileInfo(fileInfo);
+
 			photoEditor = new PhotoEditor((Bitmap)image, fileInfo.FullName);
 			photoEditor.OnePercentOfEditCompleted += updateTransformProgressBar;
 
@@ -119,6 +120,13 @@ namespace photo_editor {
 		private void cancelButton_Click(object sender, EventArgs e)
 		{
 			Close();
+		}
+
+		private Image getImageFromFileInfo(FileInfo fileInfo)
+		{
+			byte[] bytes = System.IO.File.ReadAllBytes(fileInfo.FullName);
+			MemoryStream memoryStream = new MemoryStream(bytes);
+			return Image.FromStream(memoryStream);
 		}
 	}
 }

@@ -168,23 +168,7 @@ namespace photo_editor
 
 		public void saveImage()
 		{
-			//MemoryStream ms = new MemoryStream(TransformedBitmap.Bit);
-			//Bitmap returnImage = new Bitmap(Image.FromStream(ms, true, true), 100, 100);
-			//returnImage.Save(@"C:\Data\Rehan1.png");
-			//return returnImage;
-
-			// ------------
-
-			//using (MemoryStream memoryStream = new MemoryStream())
-			//{
-			//	TransformedBitmap.Save(memoryStream, ImageFormat.Jpeg);
-
-			//	var img = Image.FromStream(memoryStream);
-
-			//	img.Save("C:\\test.jpg");
-			//}
-
-			TransformedBitmap.Save(System.IO.Path.GetFullPath(TransformedBitmapName));
+			TransformedBitmap.Save(System.IO.Path.GetFullPath(TransformedBitmapName), ImageFormat.Jpeg);
 		}
 
 		private void onePercentOfPhotoEditCompleted(int totalPercentCompleted)
@@ -249,6 +233,7 @@ namespace photo_editor
 		private void storeTransformedBitmap()
 		{
 			storedTransformedBitmap = (Bitmap)TransformedBitmap.Clone();
+			//storedTransformedBitmap = new Bitmap(TransformedBitmap);
 		}
 	}
 }
