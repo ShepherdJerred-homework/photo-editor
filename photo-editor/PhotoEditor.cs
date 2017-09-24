@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -167,7 +168,23 @@ namespace photo_editor
 
 		public void saveImage()
 		{
-			TransformedBitmap.Save(TransformedBitmapName, ImageFormat.Jpeg);
+			//MemoryStream ms = new MemoryStream(TransformedBitmap.Bit);
+			//Bitmap returnImage = new Bitmap(Image.FromStream(ms, true, true), 100, 100);
+			//returnImage.Save(@"C:\Data\Rehan1.png");
+			//return returnImage;
+
+			// ------------
+
+			//using (MemoryStream memoryStream = new MemoryStream())
+			//{
+			//	TransformedBitmap.Save(memoryStream, ImageFormat.Jpeg);
+
+			//	var img = Image.FromStream(memoryStream);
+
+			//	img.Save("C:\\test.jpg");
+			//}
+
+			TransformedBitmap.Save(System.IO.Path.GetFullPath(TransformedBitmapName));
 		}
 
 		private void onePercentOfPhotoEditCompleted(int totalPercentCompleted)

@@ -20,7 +20,7 @@ namespace photo_editor {
 		public EditForm(FileInfo fileInfo)
 		{
 			Image image = Image.FromFile(fileInfo.FullName);
-			photoEditor = new PhotoEditor((Bitmap)image, fileInfo.Name);
+			photoEditor = new PhotoEditor((Bitmap)image, fileInfo.FullName);
 			photoEditor.OnePercentOfEditCompleted += updateTransformProgressBar;
 
 			InitializeComponent();
@@ -34,11 +34,17 @@ namespace photo_editor {
 			transformProgressForm.ImageEditCancelled += cancelImageEdit;
 			transformProgressForm.Show();
 
-			await Task.Run(() => { alterPhoto(sender); });
+			await Task.Run(() =>
+			{
+				alterPhoto(sender);
 
-			transformProgressForm.Close();
-			enableForm();
-			updateImage();
+				Invoke((Action)delegate ()
+				{
+					transformProgressForm.Close();
+					enableForm();
+					updateImage();
+				});
+			});
 		}
 
 		private void alterPhoto(object sender)
