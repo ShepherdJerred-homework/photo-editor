@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,10 +24,12 @@ namespace photo_editor
 		public CancellationTokenSource cancellationTokenSource;
 
 		public Bitmap TransformedBitmap { get; set; }
+		public string TransformedBitmapName { get; private set; }
 
-		public PhotoEditor(Bitmap transformedBitmap)
+		public PhotoEditor(Bitmap transformedBitmap, string transformedBitmapName)
 		{
 			TransformedBitmap = transformedBitmap;
+			TransformedBitmapName = transformedBitmapName;
 
 			transformedBitmapArea = calculateTransformedBitmapArea();
 			onePercentOfArea = transformedBitmapArea / 100;
@@ -160,6 +163,11 @@ namespace photo_editor
 		public void cancelImageEdit()
 		{
 			cancellationTokenSource.Cancel();
+		}
+
+		public void saveImage()
+		{
+			TransformedBitmap.Save(TransformedBitmapName, ImageFormat.Jpeg);
 		}
 
 		private void onePercentOfPhotoEditCompleted(int totalPercentCompleted)

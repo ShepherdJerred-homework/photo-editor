@@ -20,17 +20,11 @@ namespace photo_editor {
 		public EditForm(FileInfo fileInfo)
 		{
 			Image image = Image.FromFile(fileInfo.FullName);
-			photoEditor = new PhotoEditor((Bitmap)image);
+			photoEditor = new PhotoEditor((Bitmap)image, fileInfo.Name);
 			photoEditor.OnePercentOfEditCompleted += updateTransformProgressBar;
 
 			InitializeComponent();
 			pictureBox.Image = image;
-		}
-
-		private void launchProgressBar()
-		{
-			TransformProgressForm transformProgressForm = new TransformProgressForm();
-			transformProgressForm.Show();
 		}
 
 		private async void alterPhoto_Click(object sender, EventArgs e)
@@ -77,7 +71,6 @@ namespace photo_editor {
 		private void updateTransformProgressBar(int totalPercentageCompleted)
 		{
 			Invoke((Action)delegate () { transformProgressForm.ProgressBarValue = totalPercentageCompleted; });
-			//transformProgressForm.ProgressBarValue = totalPercentageCompleted;
 		}
 
 		private void cancelImageEdit()
@@ -110,6 +103,16 @@ namespace photo_editor {
 		private void updateImage()
 		{
 			pictureBox.Image = photoEditor.TransformedBitmap;
+		}
+
+		private void saveButton_Click(object sender, EventArgs e)
+		{
+			photoEditor.saveImage();
+		}
+
+		private void cancelButton_Click(object sender, EventArgs e)
+		{
+			Close();
 		}
 	}
 }

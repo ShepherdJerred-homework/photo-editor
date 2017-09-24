@@ -43,6 +43,7 @@
 			// 
 			// cancelButton
 			// 
+			this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.cancelButton.Location = new System.Drawing.Point(115, 115);
 			this.cancelButton.Name = "cancelButton";
 			this.cancelButton.Size = new System.Drawing.Size(75, 23);
@@ -70,6 +71,7 @@
 			this.Controls.Add(this.progressBar);
 			this.Name = "TransformProgressForm";
 			this.Text = "Transforming";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formClosed);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

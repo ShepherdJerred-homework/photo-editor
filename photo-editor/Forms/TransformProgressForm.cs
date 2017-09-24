@@ -31,8 +31,12 @@ namespace photo_editor.Forms
 
 		private void cancelButton_Click(object sender, System.EventArgs e)
 		{
-			ImageEditCancelled();
 			Close();
+		}
+
+		private void formClosed(object sender, FormClosingEventArgs e)
+		{
+			ImageEditCancelled();
 		}
 	}
 }
