@@ -41,6 +41,9 @@
 			// 
 			// pictureBox
 			// 
+			this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.pictureBox.Location = new System.Drawing.Point(13, 13);
 			this.pictureBox.Name = "pictureBox";
 			this.pictureBox.Size = new System.Drawing.Size(636, 352);
@@ -50,6 +53,7 @@
 			// 
 			// brightnessTrackBar
 			// 
+			this.brightnessTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.brightnessTrackBar.Location = new System.Drawing.Point(13, 20);
 			this.brightnessTrackBar.Maximum = 100;
 			this.brightnessTrackBar.Name = "brightnessTrackBar";
@@ -60,6 +64,7 @@
 			// 
 			// colorButton
 			// 
+			this.colorButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
 			this.colorButton.Location = new System.Drawing.Point(280, 20);
 			this.colorButton.Name = "colorButton";
 			this.colorButton.Size = new System.Drawing.Size(75, 23);
@@ -70,6 +75,7 @@
 			// 
 			// invertButton
 			// 
+			this.invertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.invertButton.Location = new System.Drawing.Point(555, 20);
 			this.invertButton.Name = "invertButton";
 			this.invertButton.Size = new System.Drawing.Size(75, 23);
@@ -80,6 +86,8 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox1.Controls.Add(this.brightnessDarkLabel);
 			this.groupBox1.Controls.Add(this.brightnessLightLabel);
 			this.groupBox1.Controls.Add(this.brightnessLabel);
@@ -94,6 +102,7 @@
 			// 
 			// brightnessLabel
 			// 
+			this.brightnessLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.brightnessLabel.AutoSize = true;
 			this.brightnessLabel.Location = new System.Drawing.Point(36, 52);
 			this.brightnessLabel.Name = "brightnessLabel";
@@ -103,6 +112,7 @@
 			// 
 			// cancelButton
 			// 
+			this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.cancelButton.Location = new System.Drawing.Point(575, 472);
 			this.cancelButton.Name = "cancelButton";
 			this.cancelButton.Size = new System.Drawing.Size(75, 23);
@@ -113,6 +123,7 @@
 			// 
 			// saveButton
 			// 
+			this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.saveButton.Location = new System.Drawing.Point(413, 472);
 			this.saveButton.Name = "saveButton";
 			this.saveButton.Size = new System.Drawing.Size(75, 23);
@@ -123,6 +134,7 @@
 			// 
 			// saveAsButton
 			// 
+			this.saveAsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.saveAsButton.Location = new System.Drawing.Point(494, 472);
 			this.saveAsButton.Name = "saveAsButton";
 			this.saveAsButton.Size = new System.Drawing.Size(75, 23);
@@ -133,6 +145,7 @@
 			// 
 			// brightnessDarkLabel
 			// 
+			this.brightnessDarkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.brightnessDarkLabel.AutoSize = true;
 			this.brightnessDarkLabel.Location = new System.Drawing.Point(6, 9);
 			this.brightnessDarkLabel.Name = "brightnessDarkLabel";
@@ -142,6 +155,7 @@
 			// 
 			// brightnessLightLabel
 			// 
+			this.brightnessLightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.brightnessLightLabel.AutoSize = true;
 			this.brightnessLightLabel.Location = new System.Drawing.Point(94, 9);
 			this.brightnessLightLabel.Name = "brightnessLightLabel";
