@@ -28,9 +28,12 @@
 			this.colorButton = new System.Windows.Forms.Button();
 			this.invertButton = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.brightnessLabel = new System.Windows.Forms.Label();
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.saveButton = new System.Windows.Forms.Button();
 			this.saveAsButton = new System.Windows.Forms.Button();
+			this.brightnessDarkLabel = new System.Windows.Forms.Label();
+			this.brightnessLightLabel = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.brightnessTrackBar)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -47,7 +50,7 @@
 			// 
 			// brightnessTrackBar
 			// 
-			this.brightnessTrackBar.Location = new System.Drawing.Point(13, 19);
+			this.brightnessTrackBar.Location = new System.Drawing.Point(13, 20);
 			this.brightnessTrackBar.Maximum = 100;
 			this.brightnessTrackBar.Name = "brightnessTrackBar";
 			this.brightnessTrackBar.Size = new System.Drawing.Size(104, 45);
@@ -57,7 +60,7 @@
 			// 
 			// colorButton
 			// 
-			this.colorButton.Location = new System.Drawing.Point(280, 19);
+			this.colorButton.Location = new System.Drawing.Point(280, 20);
 			this.colorButton.Name = "colorButton";
 			this.colorButton.Size = new System.Drawing.Size(75, 23);
 			this.colorButton.TabIndex = 3;
@@ -67,7 +70,7 @@
 			// 
 			// invertButton
 			// 
-			this.invertButton.Location = new System.Drawing.Point(555, 19);
+			this.invertButton.Location = new System.Drawing.Point(555, 20);
 			this.invertButton.Name = "invertButton";
 			this.invertButton.Size = new System.Drawing.Size(75, 23);
 			this.invertButton.TabIndex = 4;
@@ -77,6 +80,9 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.brightnessDarkLabel);
+			this.groupBox1.Controls.Add(this.brightnessLightLabel);
+			this.groupBox1.Controls.Add(this.brightnessLabel);
 			this.groupBox1.Controls.Add(this.brightnessTrackBar);
 			this.groupBox1.Controls.Add(this.invertButton);
 			this.groupBox1.Controls.Add(this.colorButton);
@@ -85,6 +91,15 @@
 			this.groupBox1.Size = new System.Drawing.Size(636, 82);
 			this.groupBox1.TabIndex = 5;
 			this.groupBox1.TabStop = false;
+			// 
+			// brightnessLabel
+			// 
+			this.brightnessLabel.AutoSize = true;
+			this.brightnessLabel.Location = new System.Drawing.Point(36, 52);
+			this.brightnessLabel.Name = "brightnessLabel";
+			this.brightnessLabel.Size = new System.Drawing.Size(56, 13);
+			this.brightnessLabel.TabIndex = 5;
+			this.brightnessLabel.Text = "Brightness";
 			// 
 			// cancelButton
 			// 
@@ -116,6 +131,24 @@
 			this.saveAsButton.UseVisualStyleBackColor = true;
 			this.saveAsButton.Click += new System.EventHandler(this.saveAsButton_Click);
 			// 
+			// brightnessDarkLabel
+			// 
+			this.brightnessDarkLabel.AutoSize = true;
+			this.brightnessDarkLabel.Location = new System.Drawing.Point(6, 9);
+			this.brightnessDarkLabel.Name = "brightnessDarkLabel";
+			this.brightnessDarkLabel.Size = new System.Drawing.Size(30, 13);
+			this.brightnessDarkLabel.TabIndex = 9;
+			this.brightnessDarkLabel.Text = "Dark";
+			// 
+			// brightnessLightLabel
+			// 
+			this.brightnessLightLabel.AutoSize = true;
+			this.brightnessLightLabel.Location = new System.Drawing.Point(94, 9);
+			this.brightnessLightLabel.Name = "brightnessLightLabel";
+			this.brightnessLightLabel.Size = new System.Drawing.Size(30, 13);
+			this.brightnessLightLabel.TabIndex = 10;
+			this.brightnessLightLabel.Text = "Light";
+			// 
 			// EditForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,5 +179,8 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button saveButton;
 		private System.Windows.Forms.Button saveAsButton;
+		private System.Windows.Forms.Label brightnessLabel;
+		private System.Windows.Forms.Label brightnessDarkLabel;
+		private System.Windows.Forms.Label brightnessLightLabel;
 	}
 }

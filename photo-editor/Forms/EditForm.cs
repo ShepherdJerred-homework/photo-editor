@@ -54,25 +54,49 @@ namespace photo_editor {
 
 			if (senderName == invertButton.Name)
 			{
-				photoEditor.InvertColors();
+				InvertColors();
 			}
 			else if (senderName == colorButton.Name)
 			{
-				ColorDialog colorDialog = new ColorDialog();
-
-				if (colorDialog.ShowDialog() == DialogResult.OK)
-				{
-					photoEditor.TransformByColor(colorDialog.Color);
-				}
+				TransformByColor();
 			}
 			else if (senderName == brightnessTrackBar.Name)
 			{
-				photoEditor.ChangeBrightness(brightnessTrackBar.Value);
+				ChangeBrightness();
 			}
 			else
 			{
 				throw new ArgumentException("EditForm.AlterPhoto() could not be performed with the sender - " + sender.ToString());
 			}
+		}
+
+		private void InvertColors()
+		{
+			photoEditor.InvertColors();
+		}
+
+		private void TransformByColor()
+		{
+			ColorDialog colorDialog = new ColorDialog();
+
+			if (colorDialog.ShowDialog() == DialogResult.OK)
+			{
+				photoEditor.TransformByColor(colorDialog.Color);
+			}
+		}
+
+		private void ChangeBrightness()
+		{
+			int brightnessTrackBarValue = -1;
+
+			brightnessTrackBar.Invoke(new MethodInvoker(delegate { brightnessTrackBarValue = brightnessTrackBar.Value; }));
+
+			if (brightnessTrackBarValue == -1)
+			{
+				throw new ArgumentException("brightnessTrackBarValue was not properly set.");
+			}
+
+			photoEditor.ChangeBrightness(brightnessTrackBarValue);
 		}
 
 		private void updateTransformProgressBar(int totalPercentageCompleted)
