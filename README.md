@@ -26,8 +26,9 @@ Jerred Shepherd (50%)
 
 Alec Watson (50%)
 * Main form layout
-* Edit Form Code
-* Transformation Progress Form layout and code
+* Edit Form Implementation
+* Transformation Progress Form layout and implementation
+* PhotoEditor Object Implementation
 * Bonus #4 and #5
 
 Screenshot
