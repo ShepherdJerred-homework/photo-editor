@@ -160,7 +160,10 @@ namespace photo_editor
 
 		public void cancelImageEdit()
 		{
-			cancellationTokenSource.Cancel();
+			if (cancellationTokenSource != null)
+			{
+				cancellationTokenSource.Cancel();
+			}
 		}
 
 		public void saveImage()
