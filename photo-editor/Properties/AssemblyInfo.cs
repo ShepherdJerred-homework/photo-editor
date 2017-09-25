@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("A very basic photo editor made with C# and Windows forms")]
 [assembly: AssemblyProduct("Photo Editor")]
-[assembly: AssemblyCopyright("Copyright 2017")]
+[assembly: AssemblyCopyright("Created by Alec Watson and Jerred Shepherd")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
