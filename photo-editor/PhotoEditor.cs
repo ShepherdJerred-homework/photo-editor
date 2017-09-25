@@ -59,15 +59,7 @@ namespace photo_editor
 					Color newColor = Color.FromArgb(newRed, newGreen, newBlue);
 					TransformedBitmap.SetPixel(x, y, newColor);
 
-					if (numberOfPixelsEdited == 0)
-					{
-						OnePercentOfEditCompleted(++currentPerecentageCompleted);
-						numberOfPixelsEdited = onePercentOfArea;
-					}
-					else
-					{
-						numberOfPixelsEdited--;
-					}
+					updateTransformationProgress(ref numberOfPixelsEdited, ref currentPerecentageCompleted);
 				}
 			}
 
@@ -96,15 +88,7 @@ namespace photo_editor
 
 					TransformedBitmap.SetPixel(x, y, newColor);
 
-					if (numberOfPixelsEdited == 0)
-					{
-						OnePercentOfEditCompleted(++currentPerecentageCompleted);
-						numberOfPixelsEdited = onePercentOfArea;
-					}
-					else
-					{
-						numberOfPixelsEdited--;
-					}
+					updateTransformationProgress(ref numberOfPixelsEdited, ref currentPerecentageCompleted);
 				}
 			}
 
@@ -143,15 +127,7 @@ namespace photo_editor
 
 					TransformedBitmap.SetPixel(x, y, newColor);
 
-					if (numberOfPixelsEdited == 0)
-					{
-						OnePercentOfEditCompleted(++currentPerecentageCompleted);
-						numberOfPixelsEdited = onePercentOfArea;
-					}
-					else
-					{
-						numberOfPixelsEdited--;
-					}
+					updateTransformationProgress(ref numberOfPixelsEdited, ref currentPerecentageCompleted);
 				}
 			}
 
@@ -216,6 +192,19 @@ namespace photo_editor
 		private int calculateTransformedBitmapArea()
 		{
 			return TransformedBitmap.Height * TransformedBitmap.Width;
+		}
+
+		private void updateTransformationProgress(ref int numberOfPixelsEdited, ref int currentPerecentageCompleted)
+		{
+			if (numberOfPixelsEdited == 0)
+			{
+				OnePercentOfEditCompleted(++currentPerecentageCompleted);
+				numberOfPixelsEdited = onePercentOfArea;
+			}
+			else
+			{
+				numberOfPixelsEdited--;
+			}
 		}
 
 		private int subtractBrightnessModifierFromRgbValue(int amountToSubtractFromRgbValue, int rgbValue)
