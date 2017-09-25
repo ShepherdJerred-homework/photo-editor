@@ -69,7 +69,10 @@
 			this.Controls.Add(this.pleaseWaitLabel);
 			this.Controls.Add(this.cancelButton);
 			this.Controls.Add(this.progressBar);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.MaximizeBox = false;
 			this.Name = "TransformProgressForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Transforming";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formClosed);
 			this.ResumeLayout(false);
