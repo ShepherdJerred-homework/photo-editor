@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using photo_editor.Forms;
@@ -11,6 +12,7 @@ namespace photo_editor {
     public partial class MainForm : Form {
         private DirectoryInfo rootDirectory;
         private DirectoryModel directoryModel;
+        private CancellationTokenSource cancellationToken;
 
         public MainForm() {
             rootDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
@@ -28,6 +30,7 @@ namespace photo_editor {
         }
 
         public void UpdateSelectedDirectory(DirectoryInfo directoryInfo) {
+            cancellationToken?.Cancel();
             directoryModel.directory = directoryInfo;
             directoryLabel.Text = directoryInfo.FullName;
             itemCount.Text = directoryModel.getImagesInDirectory().Length + " items";
@@ -59,7 +62,13 @@ namespace photo_editor {
                         imageLoadingBar.Maximum = directoryModel.getImagesInDirectory().Length;
                     });
 
+                    cancellationToken = new CancellationTokenSource();
+                    CancellationToken token = cancellationToken.Token;
+
                     foreach (FileInfo file in files) {
+                        if (token.IsCancellationRequested) {
+                            return;
+                        }
                         statusStrip.Invoke((MethodInvoker) delegate { imageLoadingBar.PerformStep(); });
 
                         ListView.Invoke((MethodInvoker) delegate {
@@ -81,7 +90,11 @@ namespace photo_editor {
                         item.SubItems.Add((file.Length / 1024F / 1024F).ToString());
                         item.Tag = file;
 
-                        ListView.Invoke((MethodInvoker) delegate { ListView.Items.Add(item); });
+                        ListView.Invoke((MethodInvoker) delegate {
+                            if (token.IsCancellationRequested) {
+                                return;
+                            }
+                            ListView.Items.Add(item); });
                     }
                 });
             }
@@ -97,7 +110,6 @@ namespace photo_editor {
             treeView.Nodes.Add(CreateTreeNode(rootDirectoryInfo));
         }
 
-        // TODO add image icons
         private static TreeNode CreateTreeNode(DirectoryInfo directoryInfo) {
             TreeNode directoryNode = new TreeNode(directoryInfo.Name);
             try {
