@@ -14,8 +14,9 @@ namespace photo_editor.Forms {
             this.Text = String.Format("About {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = AssemblyCompany;
+			//this.labelCopyright.Text = AssemblyCopyright;
+			this.labelCopyright.Text = "Created by Alec Watson and Jerred Shepherd";
+			this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
         }
 
@@ -79,6 +80,6 @@ namespace photo_editor.Forms {
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-        #endregion
-    }
+		#endregion
+	}
 }

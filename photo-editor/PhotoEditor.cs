@@ -152,7 +152,6 @@ namespace photo_editor
 
 		private Color getNewColorForInversionTransformation(Color color)
 		{
-			//Color color = TransformedBitmap.GetPixel(x, y);
 			int newRed = Math.Abs(color.R - RGB_MAX_VALUE);
 			int newGreen = Math.Abs(color.G - RGB_MAX_VALUE);
 			int newBlue = Math.Abs(color.B - RGB_MAX_VALUE);
