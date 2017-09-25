@@ -28,12 +28,12 @@
 			this.colorButton = new System.Windows.Forms.Button();
 			this.invertButton = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.brightnessDarkLabel = new System.Windows.Forms.Label();
+			this.brightnessLightLabel = new System.Windows.Forms.Label();
 			this.brightnessLabel = new System.Windows.Forms.Label();
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.saveButton = new System.Windows.Forms.Button();
 			this.saveAsButton = new System.Windows.Forms.Button();
-			this.brightnessDarkLabel = new System.Windows.Forms.Label();
-			this.brightnessLightLabel = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.brightnessTrackBar)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -100,6 +100,26 @@
 			this.groupBox1.TabIndex = 5;
 			this.groupBox1.TabStop = false;
 			// 
+			// brightnessDarkLabel
+			// 
+			this.brightnessDarkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.brightnessDarkLabel.AutoSize = true;
+			this.brightnessDarkLabel.Location = new System.Drawing.Point(6, 9);
+			this.brightnessDarkLabel.Name = "brightnessDarkLabel";
+			this.brightnessDarkLabel.Size = new System.Drawing.Size(30, 13);
+			this.brightnessDarkLabel.TabIndex = 9;
+			this.brightnessDarkLabel.Text = "Dark";
+			// 
+			// brightnessLightLabel
+			// 
+			this.brightnessLightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.brightnessLightLabel.AutoSize = true;
+			this.brightnessLightLabel.Location = new System.Drawing.Point(94, 9);
+			this.brightnessLightLabel.Name = "brightnessLightLabel";
+			this.brightnessLightLabel.Size = new System.Drawing.Size(30, 13);
+			this.brightnessLightLabel.TabIndex = 10;
+			this.brightnessLightLabel.Text = "Light";
+			// 
 			// brightnessLabel
 			// 
 			this.brightnessLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -143,26 +163,6 @@
 			this.saveAsButton.UseVisualStyleBackColor = true;
 			this.saveAsButton.Click += new System.EventHandler(this.saveAsButton_Click);
 			// 
-			// brightnessDarkLabel
-			// 
-			this.brightnessDarkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.brightnessDarkLabel.AutoSize = true;
-			this.brightnessDarkLabel.Location = new System.Drawing.Point(6, 9);
-			this.brightnessDarkLabel.Name = "brightnessDarkLabel";
-			this.brightnessDarkLabel.Size = new System.Drawing.Size(30, 13);
-			this.brightnessDarkLabel.TabIndex = 9;
-			this.brightnessDarkLabel.Text = "Dark";
-			// 
-			// brightnessLightLabel
-			// 
-			this.brightnessLightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.brightnessLightLabel.AutoSize = true;
-			this.brightnessLightLabel.Location = new System.Drawing.Point(94, 9);
-			this.brightnessLightLabel.Name = "brightnessLightLabel";
-			this.brightnessLightLabel.Size = new System.Drawing.Size(30, 13);
-			this.brightnessLightLabel.TabIndex = 10;
-			this.brightnessLightLabel.Text = "Light";
-			// 
 			// EditForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -175,6 +175,7 @@
 			this.Controls.Add(this.pictureBox);
 			this.Name = "EditForm";
 			this.Text = "Edit Photo";
+			this.Resize += new System.EventHandler(this.setPictureBoxImageWithAspectRatio);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.brightnessTrackBar)).EndInit();
 			this.groupBox1.ResumeLayout(false);

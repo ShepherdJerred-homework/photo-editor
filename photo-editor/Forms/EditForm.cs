@@ -1,31 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using photo_editor.Forms;
 
-namespace photo_editor {
-
-	public partial class EditForm : Form {
-
+namespace photo_editor
+{
+	public partial class EditForm : Form
+	{
+		private double imageAspectRatio;
+		private Image image;
 		private PhotoEditor photoEditor;
 		private TransformProgressForm transformProgressForm;
 
 		public EditForm(FileInfo fileInfo)
 		{
-			Image image = getImageFromFileInfo(fileInfo);
+			image = getImageFromFileInfo(fileInfo);
+			imageAspectRatio = calculateImageAspectRatio(image);
 
 			photoEditor = new PhotoEditor((Bitmap)image, fileInfo.FullName);
 			photoEditor.OnePercentOfEditCompleted += updateTransformProgressBar;
 
 			InitializeComponent();
-			pictureBox.Image = image;
+
+			setPictureBoxImageWithAspectRatio();
 		}
 
 		private async void alterPhoto_Click(object sender, EventArgs e)
@@ -144,7 +143,7 @@ namespace photo_editor {
 		private void saveAsButton_Click(object sender, EventArgs e)
 		{
 			SaveFileDialog saveFileDialog = new SaveFileDialog();
-			saveFileDialog.Filter = "Text files (*.jpg)|*.jpg|All files|*.*";
+			saveFileDialog.Filter = "JPEG (*.jpg)|*.jpg|All files|*.*";
 
 			if (saveFileDialog.ShowDialog() == DialogResult.OK)
 			{
@@ -162,6 +161,34 @@ namespace photo_editor {
 			byte[] bytes = System.IO.File.ReadAllBytes(fileInfo.FullName);
 			MemoryStream memoryStream = new MemoryStream(bytes);
 			return Image.FromStream(memoryStream);
+		}
+
+		private double calculateImageAspectRatio(Image image)
+		{
+			return (double)image.Width / (double)image.Height;
+		}
+
+		private void setPictureBoxImageWithAspectRatio(object sender, EventArgs e)
+		{
+			setPictureBoxImageWithAspectRatio();
+		}
+
+		private void setPictureBoxImageWithAspectRatio()
+		{
+			pictureBox.Width = calculateImageHeightAccordingToAspectRatio();
+			centerPictureBox();
+
+			pictureBox.Image = image;
+		}
+
+		private int calculateImageHeightAccordingToAspectRatio()
+		{
+			return (int)(pictureBox.Height * imageAspectRatio);
+		}
+
+		private void centerPictureBox()
+		{
+			pictureBox.Location = new Point((Width - pictureBox.Width) / 2, pictureBox.Location.Y);
 		}
 	}
 }
