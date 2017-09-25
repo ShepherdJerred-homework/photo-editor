@@ -233,7 +233,6 @@ namespace photo_editor
 		private void storeTransformedBitmap()
 		{
 			storedTransformedBitmap = (Bitmap)TransformedBitmap.Clone();
-			//storedTransformedBitmap = new Bitmap(TransformedBitmap);
 		}
 	}
 }
