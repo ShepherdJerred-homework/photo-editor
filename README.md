@@ -1,4 +1,4 @@
-# Photo Editor
+# [Photo Editor](https://github.com/ShepherdJerred/photo-editor)
 A barebones jpeg photo editor/view made with Windows Forms and C#
 
 ### Features
