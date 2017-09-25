@@ -51,12 +51,7 @@ namespace photo_editor
 						return;
 					}
 
-					Color color = TransformedBitmap.GetPixel(x, y);
-					int newRed = Math.Abs(color.R - RGB_MAX_VALUE);
-					int newGreen = Math.Abs(color.G - RGB_MAX_VALUE);
-					int newBlue = Math.Abs(color.B - RGB_MAX_VALUE);
-
-					Color newColor = Color.FromArgb(newRed, newGreen, newBlue);
+					Color newColor = getNewColorForInversionTransformation(TransformedBitmap.GetPixel(x, y));
 					TransformedBitmap.SetPixel(x, y, newColor);
 
 					updateTransformationProgress(ref numberOfPixelsEdited, ref currentPerecentageCompleted);
@@ -85,7 +80,6 @@ namespace photo_editor
 					}
 
 					Color newColor = getNewColorForColorTransform(calculateAverageRgbPercentageForPixel(x, y), transformColor);
-
 					TransformedBitmap.SetPixel(x, y, newColor);
 
 					updateTransformationProgress(ref numberOfPixelsEdited, ref currentPerecentageCompleted);
@@ -124,7 +118,6 @@ namespace photo_editor
 					}
 
 					Color newColor = getNewColorForBrightnessTransform(amountToSubtractFromRgbValue, TransformedBitmap.GetPixel(x, y));
-
 					TransformedBitmap.SetPixel(x, y, newColor);
 
 					updateTransformationProgress(ref numberOfPixelsEdited, ref currentPerecentageCompleted);
@@ -155,6 +148,16 @@ namespace photo_editor
 		private void onePercentOfPhotoEditCompleted(int totalPercentCompleted)
 		{
 			OnePercentOfEditCompleted(totalPercentCompleted);
+		}
+
+		private Color getNewColorForInversionTransformation(Color color)
+		{
+			//Color color = TransformedBitmap.GetPixel(x, y);
+			int newRed = Math.Abs(color.R - RGB_MAX_VALUE);
+			int newGreen = Math.Abs(color.G - RGB_MAX_VALUE);
+			int newBlue = Math.Abs(color.B - RGB_MAX_VALUE);
+
+			return Color.FromArgb(newRed, newGreen, newBlue);
 		}
 
 		private Color getNewColorForBrightnessTransform(int amountToSubtractFromRgbValue, Color currentColor)
