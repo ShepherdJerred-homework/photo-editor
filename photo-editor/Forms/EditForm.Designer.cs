@@ -30,6 +30,7 @@
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.saveButton = new System.Windows.Forms.Button();
+			this.saveAsButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.brightnessTrackBar)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -97,7 +98,7 @@
 			// 
 			// saveButton
 			// 
-			this.saveButton.Location = new System.Drawing.Point(494, 472);
+			this.saveButton.Location = new System.Drawing.Point(413, 472);
 			this.saveButton.Name = "saveButton";
 			this.saveButton.Size = new System.Drawing.Size(75, 23);
 			this.saveButton.TabIndex = 7;
@@ -105,11 +106,22 @@
 			this.saveButton.UseVisualStyleBackColor = true;
 			this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
 			// 
+			// saveAsButton
+			// 
+			this.saveAsButton.Location = new System.Drawing.Point(494, 472);
+			this.saveAsButton.Name = "saveAsButton";
+			this.saveAsButton.Size = new System.Drawing.Size(75, 23);
+			this.saveAsButton.TabIndex = 8;
+			this.saveAsButton.Text = "Save As...";
+			this.saveAsButton.UseVisualStyleBackColor = true;
+			this.saveAsButton.Click += new System.EventHandler(this.saveAsButton_Click);
+			// 
 			// EditForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(662, 505);
+			this.Controls.Add(this.saveAsButton);
 			this.Controls.Add(this.saveButton);
 			this.Controls.Add(this.cancelButton);
 			this.Controls.Add(this.groupBox1);
@@ -133,5 +145,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button saveButton;
-    }
+		private System.Windows.Forms.Button saveAsButton;
+	}
 }

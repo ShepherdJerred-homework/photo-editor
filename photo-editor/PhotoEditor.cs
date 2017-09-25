@@ -171,6 +171,11 @@ namespace photo_editor
 			TransformedBitmap.Save(System.IO.Path.GetFullPath(TransformedBitmapName), ImageFormat.Jpeg);
 		}
 
+		public void saveImageAs(string fileName)
+		{
+			TransformedBitmap.Save(System.IO.Path.GetFullPath(fileName), ImageFormat.Jpeg);
+		}
+
 		private void onePercentOfPhotoEditCompleted(int totalPercentCompleted)
 		{
 			OnePercentOfEditCompleted(totalPercentCompleted);

@@ -117,6 +117,17 @@ namespace photo_editor {
 			photoEditor.saveImage();
 		}
 
+		private void saveAsButton_Click(object sender, EventArgs e)
+		{
+			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			saveFileDialog.Filter = "Text files (*.jpg)|*.jpg|All files|*.*";
+
+			if (saveFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				photoEditor.saveImageAs(saveFileDialog.FileName);
+			}
+		}
+
 		private void cancelButton_Click(object sender, EventArgs e)
 		{
 			Close();
