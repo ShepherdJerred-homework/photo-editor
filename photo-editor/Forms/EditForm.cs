@@ -86,11 +86,11 @@ namespace photo_editor
 
 		private void ChangeBrightness()
 		{
-			int brightnessTrackBarValue = -1;
+			int brightnessTrackBarValue = Int32.MinValue;
 
 			brightnessTrackBar.Invoke(new MethodInvoker(delegate { brightnessTrackBarValue = brightnessTrackBar.Value; }));
 
-			if (brightnessTrackBarValue == -1)
+			if (brightnessTrackBarValue == Int32.MinValue)
 			{
 				throw new ArgumentException("brightnessTrackBarValue was not properly set.");
 			}
